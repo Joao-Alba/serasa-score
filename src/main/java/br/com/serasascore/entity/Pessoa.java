@@ -16,22 +16,22 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String nome;
 
-    @NonNull
+    @Column(nullable = false)
     private String telefone;
 
-    @NonNull
+    @Column(nullable = false)
     private int idade;
 
-    @NonNull
+    @Column(nullable = false)
     private String cidade;
 
-    @NonNull
+    @Column(nullable = false)
     private String estado;
 
-    @NonNull
+    @Column(nullable = false)
     private int score;
 
     public String getScoreDescricao() {
