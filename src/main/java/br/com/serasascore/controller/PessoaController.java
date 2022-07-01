@@ -44,11 +44,11 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<PessoaDto> savePessoa(@RequestBody Pessoa pessoa) {
+    public ResponseEntity<Void> savePessoa(@RequestBody Pessoa pessoa) {
         Pessoa pessoaSalva = pessoaService.savePessoa(pessoa);
 
         if(Objects.nonNull(pessoaSalva)){
-            return new ResponseEntity<PessoaDto>(new PessoaDto(pessoaSalva), HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }else{
             return ResponseEntity.badRequest().build();
         }

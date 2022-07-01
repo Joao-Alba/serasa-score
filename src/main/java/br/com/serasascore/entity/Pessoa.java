@@ -1,5 +1,6 @@
 package br.com.serasascore.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Data
 @Table(name = "pessoa")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Pessoa {
 
     @Id
