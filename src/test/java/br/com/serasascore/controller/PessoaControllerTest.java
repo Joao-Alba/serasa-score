@@ -1,5 +1,6 @@
 package br.com.serasascore.controller;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -14,19 +15,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PessoaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Test
     public void shouldSavePessoa() throws Exception {
 
-        ObjectMapper objectMapper = new ObjectMapper();
         PostPessoa pessoa = new PostPessoa();
 
         mockMvc.perform(post("/pessoa")
@@ -39,7 +44,6 @@ public class PessoaControllerTest {
     @Test
     public void shouldSaveAndFindFirstPessoa() throws Exception {
 
-        ObjectMapper objectMapper = new ObjectMapper();
         PostPessoa pessoa = new PostPessoa();
 
         mockMvc.perform(post("/pessoa")
@@ -65,7 +69,6 @@ public class PessoaControllerTest {
     @Test
     public void shouldSaveTwoPessoasAndFindBoth() throws Exception {
 
-        ObjectMapper objectMapper = new ObjectMapper();
         PostPessoa pessoa = new PostPessoa();
 
         mockMvc.perform(post("/pessoa")
@@ -87,6 +90,7 @@ public class PessoaControllerTest {
         mockMvc.perform(get("/pessoa"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].nome", is("nomePessoa")))
                 .andExpect(jsonPath("$[0].scoreDescricao", is("Recomendável")))
                 .andExpect(jsonPath("$[1].nome", is("nomePessoa2")))
