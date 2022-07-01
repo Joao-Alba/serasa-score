@@ -10,7 +10,7 @@ POST /pessoa
 ```json
 {
     "nome":"Fulano de Tal",
-    "telefone":“99 99999-9999”,
+    "telefone":"99 99999-9999",
     "idade":99,
     "cidade":"Cidade de Fulano",
     "estado":"XX",
