@@ -60,13 +60,6 @@ public class PessoaControllerTest {
     }
 
     @Test
-    public void shouldNotFindPessoa() throws Exception {
-        mockMvc.perform(get("/pessoa/1"))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
     public void shouldSaveTwoPessoasAndFindBoth() throws Exception {
 
         PostPessoa pessoa = new PostPessoa();
@@ -95,6 +88,33 @@ public class PessoaControllerTest {
                 .andExpect(jsonPath("$[0].scoreDescricao", is("Recomendável")))
                 .andExpect(jsonPath("$[1].nome", is("nomePessoa2")))
                 .andExpect(jsonPath("$[1].scoreDescricao", is("Insuficiente")));
+    }
+
+    @Test
+    public void shouldNotSavePessoa() throws Exception {
+
+        PostPessoa pessoa = new PostPessoa();
+        pessoa.setNome(null);
+
+        mockMvc.perform(post("/pessoa")
+                        .content(objectMapper.writeValueAsString(pessoa))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldNotFindPessoa() throws Exception {
+        mockMvc.perform(get("/pessoa/1"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldNotFindAnyPessoa() throws Exception {
+        mockMvc.perform(get("/pessoa"))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 
     @Data

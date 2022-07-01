@@ -1,6 +1,7 @@
 package br.com.serasascore.entity.dto;
 
 import br.com.serasascore.entity.Pessoa;
+import br.com.serasascore.service.PessoaService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,6 @@ public class PessoaEnderecoDto {
         this.nome = pessoa.getNome();
         this.cidade = pessoa.getCidade();
         this.estado = pessoa.getEstado();
-        this.scoreDescricao = pessoa.getScoreDescricao();
+        this.scoreDescricao = PessoaService.calculateScore(pessoa.getScore());
     }
 }

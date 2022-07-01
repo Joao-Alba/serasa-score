@@ -25,4 +25,11 @@ public class PessoaService {
     public List<Pessoa> getAllPessoas() {
         return pessoaRepository.findAll();
     }
+
+    public static String calculateScore(int score) {
+        if (score <= 200) return "Insuficiente";
+        if (score <= 500) return "Inaceitável";
+        if (score <= 700) return "Aceitável";
+        return "Recomendável";
+    }
 }

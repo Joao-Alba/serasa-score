@@ -3,7 +3,6 @@ package br.com.serasascore.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 
@@ -35,11 +34,4 @@ public class Pessoa {
 
     @Column(nullable = false)
     private int score;
-
-    public String getScoreDescricao() {
-        if (this.score <= 200) return "Insuficiente";
-        if (this.score <= 500) return "Inaceitável";
-        if (this.score <= 700) return "Aceitável";
-        return "Recomendável";
-    }
 }

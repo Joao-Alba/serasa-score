@@ -5,12 +5,13 @@ import br.com.serasascore.entity.dto.PessoaDto;
 import br.com.serasascore.entity.dto.PessoaEnderecoDto;
 import br.com.serasascore.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -45,12 +46,11 @@ public class PessoaController {
 
     @PostMapping
     public ResponseEntity<Void> savePessoa(@RequestBody Pessoa pessoa) {
-        Pessoa pessoaSalva = pessoaService.savePessoa(pessoa);
-
-        if(Objects.nonNull(pessoaSalva)){
+        try {
+            pessoaService.savePessoa(pessoa);
             return new ResponseEntity<>(HttpStatus.CREATED);
-        }else{
-            return ResponseEntity.badRequest().build();
+        } catch (DataIntegrityViolationException exc) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 }
